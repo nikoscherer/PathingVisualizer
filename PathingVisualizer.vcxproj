@@ -18,6 +18,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\algorithms\Algorithm.cpp" />
+    <ClCompile Include="src\algorithms\AStar.cpp" />
+    <ClCompile Include="src\common\Map.cpp" />
+    <ClCompile Include="src\common\Node.cpp" />
+    <ClCompile Include="src\common\OSMWrapper.cpp" />
+    <ClCompile Include="src\common\Utils.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="test\GeocodingTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\algorithms\Algorithm.h" />
+    <ClInclude Include="include\algorithms\AStar.h" />
+    <ClInclude Include="include\common\Map.h" />
+    <ClInclude Include="include\common\Node.h" />
+    <ClInclude Include="include\common\OSMWrapper.h" />
+    <ClInclude Include="include\common\Utils.h" />
+    <ClInclude Include="test\Test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="python\apihandler.py" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -132,26 +156,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Algorithm.cpp" />
-    <ClCompile Include="OSMWrapper.cpp" />
-    <ClCompile Include="AStar.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Algorithm.h" />
-    <ClInclude Include="OSMWrapper.h" />
-    <ClInclude Include="AStar.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Utils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="apihandler.py" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

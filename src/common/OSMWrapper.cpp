@@ -2,14 +2,14 @@
 #include <Python.h>
 #include <iostream>
 
-#include "OSMWrapper.h"
+#include "../../include/common/OSMWrapper.h"
 
 int OSMWrapper::init() {
     Py_Initialize();
 
     // Set python path
     std::filesystem::path executePath = std::filesystem::current_path();
-    PyRun_SimpleString(("import sys; sys.path.append(r'" + executePath.string() + "')").c_str());
+    PyRun_SimpleString(("import sys; sys.path.append(r'" + executePath.string() + "/python/')").c_str());
 
     apiModule = PyImport_ImportModule("apihandler");
     if (!apiModule) {

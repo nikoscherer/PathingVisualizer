@@ -1,9 +1,2 @@
-﻿  Algorithm.cpp
-  OSMWrapper.cpp
-  AStar.cpp
-  Main.cpp
-  Map.cpp
-  Node.cpp
-  Utils.cpp
-  Generating Code...
+﻿  OSMWrapper.cpp
   PathingVisualizer.vcxproj -> C:\Users\Niko\Documents\Projects\PathingVisualizer\x64\Debug\PathingVisualizer.exe

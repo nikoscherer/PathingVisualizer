@@ -1,20 +1,14 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <Python.h>
-
 #include <filesystem>
-
 #include <iostream>
-
-#include "Map.h"
-#include "Node.h"
-#include "AStar.h"
-#include "Utils.h"
-
-#include "OSMWrapper.h"
-
+#include "../include/common/Map.h"
+#include "../include/common/Node.h"
+#include "../include/algorithms/AStar.h"
+#include "../include/common/Utils.h"
+#include "../include/common/OSMWrapper.h"
 
 // Settings
 const int SCREEN_WIDTH = 1280;

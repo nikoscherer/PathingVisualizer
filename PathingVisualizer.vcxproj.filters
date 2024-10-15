@@ -13,66 +13,59 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Node">
-      <UniqueIdentifier>{7e570ead-05a6-49a8-a5a9-eff6d3e65982}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Map">
-      <UniqueIdentifier>{78719da2-c5fd-4c27-a2e6-23b54a32bfdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{55592373-ac88-4b59-812a-accfb789238e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Algorithms">
-      <UniqueIdentifier>{1e921d5f-b729-4e85-9935-5cec379f1c76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Algorithms\A%2a">
-      <UniqueIdentifier>{bb04775f-52ab-42ca-835c-c7fd253bd896}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="test\GeocodingTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files\Node</Filter>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\Map</Filter>
+    <ClCompile Include="src\algorithms\Algorithm.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files\Utils</Filter>
+    <ClCompile Include="src\algorithms\AStar.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AStar.cpp">
-      <Filter>Source Files\Algorithms\A%2a</Filter>
+    <ClCompile Include="src\common\Map.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Algorithm.cpp">
-      <Filter>Source Files\Algorithms</Filter>
+    <ClCompile Include="src\common\Node.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OSMWrapper.cpp">
+    <ClCompile Include="src\common\OSMWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h">
-      <Filter>Source Files\Node</Filter>
+    <ClInclude Include="include\common\Map.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Source Files\Map</Filter>
+    <ClInclude Include="include\common\Node.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Source Files\Utils</Filter>
+    <ClInclude Include="include\common\OSMWrapper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AStar.h">
-      <Filter>Source Files\Algorithms\A%2a</Filter>
+    <ClInclude Include="include\common\Utils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Algorithm.h">
-      <Filter>Source Files\Algorithms</Filter>
+    <ClInclude Include="include\algorithms\AStar.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OSMWrapper.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\algorithms\Algorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\Test.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="apihandler.py" />
+    <None Include="python\apihandler.py" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>

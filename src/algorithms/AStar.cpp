@@ -1,1 +1,1 @@
-#include "AStar.h"
+#include "../../include/algorithms/AStar.h"
