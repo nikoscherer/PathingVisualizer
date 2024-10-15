@@ -100,13 +100,13 @@ void render() {
 
 void update() {
     // Calculate Algorithms
-    render();
+    //render();
 
     if (search) {
         std::cout << "Searching" << std::endl;
     }
 
-    SDL_Delay(10);
+    //SDL_Delay(10);
 }
 
 int main(int argc, char* args[])
@@ -117,10 +117,10 @@ int main(int argc, char* args[])
     osmWrapper.getRoadData();
 
 
-	if (!initSDL()) {
-		std::cout << "SDL Failed to Initialize!" << std::endl;
-		return -1;
-	}
+	//if (!initSDL()) {
+	//	std::cout << "SDL Failed to Initialize!" << std::endl;
+	//	return -1;
+	//}
 
     bool running = true;
 
@@ -149,6 +149,7 @@ int main(int argc, char* args[])
                 running = false;
             }
             else if (event.type == SDL_MOUSEMOTION) {
+             /*   Move map with mouse
                 int newMouseX = 0;
                 int newMouseY = 0;
 
@@ -163,7 +164,7 @@ int main(int argc, char* args[])
                 screenCoords = map.calculateScreenCoordinates(mapCoords[0], mapCoords[1]);
 
                 mouseX = newMouseX;
-                mouseY = newMouseY;
+                mouseY = newMouseY;*/
             }
             else if (event.type == SDL_MOUSEWHEEL) {
                 map.MAP_SIZE[0] = map.MAP_SIZE[0] - event.wheel.y * (map.MAP_SIZE[0] * 0.05);

@@ -29,7 +29,12 @@ int OSMWrapper::init() {
     return 0;
 }
 
-void OSMWrapper::callRequest() {
+void OSMWrapper::callRequest(double min_lon, double max_lon, double min_lat, double max_lat) {
+    PyObject* min_lon = PyFloat_FromDouble(min_lon);
+    PyObject* max_lon = PyFloat_FromDouble(max_lon);
+    PyObject* min_lat= PyFloat_FromDouble(min_lat);
+    PyObject* max_lat = PyFloat_FromDouble(max_lat);
+
     PyObject* req = PyObject_CallObject(requestFunction, nullptr);
     if (req) {
         Py_DECREF(req);
