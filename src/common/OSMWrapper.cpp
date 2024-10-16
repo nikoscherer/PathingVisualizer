@@ -78,6 +78,6 @@ std::vector<Node> OSMWrapper::callRequest(double minLon, double maxLon, double m
 }
 
 
-std::vector<Node> OSMWrapper::getRoadData(double minLon, double maxLon, double minLat, double maxLat) {
-    return callRequest(minLon, maxLon, minLat,maxLat);
+std::vector<Node> OSMWrapper::getRoadData(double lon, double lat, std::vector<double> bbox) {
+    return callRequest(lon - bbox[0], lon + bbox[0], lat - bbox[1], lat + bbox[1]);
 }

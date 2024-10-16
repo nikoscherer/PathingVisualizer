@@ -3,18 +3,24 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <queue>
 
 #include "Node.h"
+#include "../algorithms/Algorithm.h"
 
 class Map {
 public:
 	std::vector<Node*> vertices;
 	std::unordered_map<int, Node*> vertMap;
+	std::queue<Node*> updatedNodes;
 
 	std::vector<int> SCREEN_SIZE;
 	std::vector<double> MAP_SIZE;
 
 	std::vector<double> center;
+
+
+	Algorithm algorithm;
 
 	Map();
 	Map(std::vector<Node*> _vertices, std::vector<int> _SCREEN_SIZE, std::vector<double> _MAP_SIZE, std::vector<double> _center);

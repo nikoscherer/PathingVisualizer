@@ -15,5 +15,5 @@ private:
 public:
 	int init();
 
-	std::vector<Node> getRoadData(double minLon, double maxLon, double minLat, double maxLat);
+	std::vector<Node> getRoadData(double lon, double lat, std::vector<double> bbox);
 };

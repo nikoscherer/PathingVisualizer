@@ -9,6 +9,7 @@
 Map::Map() {
 
 }
+
 Map::Map(std::vector<Node*> _vertices, std::vector<int> _SCREEN_SIZE, std::vector<double> _MAP_SIZE, std::vector<double> _center)
 	: SCREEN_SIZE(_SCREEN_SIZE), MAP_SIZE(_MAP_SIZE), center(_center) {
 
@@ -18,6 +19,7 @@ Map::Map(std::vector<Node*> _vertices, std::vector<int> _SCREEN_SIZE, std::vecto
 
 		vertices.push_back(vertex);
 		vertMap[vertex->id] = vertex;
+		updatedNodes.push(vertex);
 	}
 }
 
@@ -47,7 +49,8 @@ void Map::connect(int id1, int id2) {
 }
 
 void Map::runAlgorithm() {
-
+	updatedNodes.push(vertices[100]);
+	algorithm.visited.insert(updatedNodes.front()->id);
 }
 
 void Map::drawMap() {

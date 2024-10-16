@@ -5,10 +5,10 @@
 #include <unordered_set>
 
 class Algorithm {
+
+public:
 	std::unordered_set<int> visited;
 	std::vector<int> toVisit;
-public:
-	virtual ~Algorithm() {};
 
-	virtual void run();
+	virtual ~Algorithm() {};
 };

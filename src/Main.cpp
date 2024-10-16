@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <Python.h>
 #include <filesystem>
+#include <queue>
 #include <iostream>
 #include "../include/common/Map.h"
 #include "../include/common/Node.h"
@@ -16,6 +17,7 @@ const int SCREEN_HEIGHT = 1280;
 
 
 // Constants
+Color YELLOW = Color(255, 255, 0, 255);
 Color WHITE = Color(200, 200, 200, 255);
 
 Color DARK_GRAY = Color(50, 50, 50, 255);
@@ -33,7 +35,7 @@ SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
 
-bool search = false;
+bool search = true;
 
 bool initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -70,26 +72,21 @@ void DrawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius) {
 }
 
 void render() {
-    SDL_SetRenderDrawColor(renderer, DARK_GRAY.red(), DARK_GRAY.green(), DARK_GRAY.blue(), DARK_GRAY.alpha());
-    SDL_RenderClear(renderer);
-
     SDL_SetRenderDrawColor(renderer, WHITE.red(), WHITE.green(), WHITE.blue(), WHITE.alpha());
 
-    for (Node* vert : nodes) {
+    while (!map.updatedNodes.empty()) {
+        Node* vert = map.updatedNodes.front();
+
         std::vector<int> vertCoords = map.calculateScreenCoordinates(vert->x, vert->y);
 
-        /*for (const int neighborID : vert->neighbors) {
-            Node* neighbor = map.vertMap[neighborID];
+        if (map.algorithm.visited.count(vert->id)) {
+            SDL_SetRenderDrawColor(renderer, YELLOW.red(), YELLOW.green(), YELLOW.blue(), YELLOW.alpha());
+        }
+        DrawCircle(renderer, vertCoords[0], vertCoords[1], 2);
 
-            std::vector<int> vert2Coords = map.calculateScreenCoordinates(neighbor->x, neighbor->y);
-
-            SDL_RenderDrawLine(renderer, vertCoords[0], vertCoords[1], vert2Coords[0], vert2Coords[1]);
-        }*/
-        
-        //Might have to be a rectangle
-        DrawCircle(renderer, vertCoords[0], vertCoords[1], 10);
+        map.updatedNodes.pop();
+        SDL_SetRenderDrawColor(renderer, WHITE.red(), WHITE.green(), WHITE.blue(), WHITE.alpha());
     }
-
 
     SDL_RenderPresent(renderer);
 }
@@ -109,8 +106,8 @@ int main(int argc, char* args[])
 
     osmWrapper.init();
 
-    // Center: -93.282871, 45.01621
-    n = osmWrapper.getRoadData(-93.283222, -93.282520, 45.013512, 45.018908);
+
+    n = osmWrapper.getRoadData(-93.282871, 45.01621, { 0.1, 0.1 });
 
     bool running = true;
 
@@ -118,17 +115,21 @@ int main(int argc, char* args[])
 
     for (auto& node : n) {
         nodes.push_back(&node);
-        std::cout << nodes[nodes.size() - 1]->y << std::endl;
     }
 
     map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, { 0.1, 0.1 }, { -93.282871, 45.01621 });
+    
 
     if (!initSDL()) {
         std::cout << "SDL Failed to Initialize!" << std::endl;
         return -1;
     }
 
+    SDL_SetRenderDrawColor(renderer, DARK_GRAY.red(), DARK_GRAY.green(), DARK_GRAY.blue(), DARK_GRAY.alpha());
+    SDL_RenderClear(renderer);
+
     while (running) {
+        
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
@@ -152,8 +153,9 @@ int main(int argc, char* args[])
                 mouseY = newMouseY;*/
             }
             else if (event.type == SDL_MOUSEWHEEL) {
-                map.MAP_SIZE[0] = map.MAP_SIZE[0] - event.wheel.y * (map.MAP_SIZE[0] * 0.05);
-                map.MAP_SIZE[1] = map.MAP_SIZE[1] - event.wheel.y * (map.MAP_SIZE[1] * 0.05);
+                //    Zoom in and out map
+                //map.MAP_SIZE[0] = map.MAP_SIZE[0] - event.wheel.y * (map.MAP_SIZE[0] * 0.05);
+                //map.MAP_SIZE[1] = map.MAP_SIZE[1] - event.wheel.y * (map.MAP_SIZE[1] * 0.05);
             }
             else if (event.type == SDL_KEYDOWN) {
                 if (event.key.keysym.sym == SDLK_SPACE) {
@@ -166,7 +168,12 @@ int main(int argc, char* args[])
             }
         }
 
+
         update();
+
+        if (search) {
+            map.runAlgorithm();
+        }
     }
 
     SDL_SetRelativeMouseMode(SDL_FALSE);
