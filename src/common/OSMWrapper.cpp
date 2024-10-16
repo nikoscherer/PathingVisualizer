@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../../include/common/OSMWrapper.h"
+#include "../../include/common/Node.h"
 
 int OSMWrapper::init() {
     Py_Initialize();
@@ -29,7 +30,7 @@ int OSMWrapper::init() {
     return 0;
 }
 
-std::vector<int> OSMWrapper::callRequest(double minLon, double maxLon, double minLat, double maxLat) {
+std::vector<Node> OSMWrapper::callRequest(double minLon, double maxLon, double minLat, double maxLat) {
     PyObject* min_lon = PyFloat_FromDouble(minLon);
     PyObject* max_lon = PyFloat_FromDouble(maxLon);
     PyObject* min_lat= PyFloat_FromDouble(minLat);
@@ -45,15 +46,18 @@ std::vector<int> OSMWrapper::callRequest(double minLon, double maxLon, double mi
 
     PyObject* req = PyObject_CallObject(requestFunction, bbox);
     if (req) {
-        std::vector<int> result;
+        std::vector<Node> result;
 
         Py_ssize_t size = PyList_Size(req);
 
         for (int i = 0; i < size; i++) {
             PyObject* item = PyList_GetItem(req, i);
 
-            result.push_back(static_cast<int>(PyLong_AsLong(item)));
-            std::cout << result[result.size() - 1] << std::endl;
+            int id = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(item, 0)));
+            double lon = static_cast<double>(PyFloat_AsDouble(PyTuple_GetItem(item, 1)));
+            double lat = static_cast<double>(PyFloat_AsDouble(PyTuple_GetItem(item, 2)));
+
+            result.push_back(Node(id, lon, lat));
         }
 
         return result;
@@ -70,11 +74,10 @@ std::vector<int> OSMWrapper::callRequest(double minLon, double maxLon, double mi
     Py_DECREF(min_lat);
     Py_DECREF(max_lat);
 
-
-    return {-1};
+    return { };
 }
 
 
-std::vector<int> OSMWrapper::getRoadData(double minLon, double maxLon, double minLat, double maxLat) {
+std::vector<Node> OSMWrapper::getRoadData(double minLon, double maxLon, double minLat, double maxLat) {
     return callRequest(minLon, maxLon, minLat,maxLat);
 }

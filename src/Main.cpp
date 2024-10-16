@@ -32,10 +32,6 @@ OSMWrapper osmWrapper;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-int mouseX = 0;
-int mouseY = 0;
-int newMouseX = 0;
-int newMouseY = 0;
 
 bool search = false;
 
@@ -82,16 +78,16 @@ void render() {
     for (Node* vert : nodes) {
         std::vector<int> vertCoords = map.calculateScreenCoordinates(vert->x, vert->y);
 
-        for (const int neighborID : vert->neighbors) {
+        /*for (const int neighborID : vert->neighbors) {
             Node* neighbor = map.vertMap[neighborID];
 
             std::vector<int> vert2Coords = map.calculateScreenCoordinates(neighbor->x, neighbor->y);
 
             SDL_RenderDrawLine(renderer, vertCoords[0], vertCoords[1], vert2Coords[0], vert2Coords[1]);
-        }
+        }*/
         
-        // Might have to be a rectangle
-        DrawCircle(renderer, vertCoords[0], vertCoords[1], 4 - int(1000 * pow(((map.MAP_SIZE[0] + map.MAP_SIZE[1]) / 2), 3)));
+        //Might have to be a rectangle
+        DrawCircle(renderer, vertCoords[0], vertCoords[1], 10);
     }
 
 
@@ -99,14 +95,13 @@ void render() {
 }
 
 void update() {
-    // Calculate Algorithms
-    //render();
+    render();
 
     if (search) {
         std::cout << "Searching" << std::endl;
     }
 
-    //SDL_Delay(10);
+    SDL_Delay(10);
 }
 
 int main(int argc, char* args[])
@@ -114,13 +109,8 @@ int main(int argc, char* args[])
 
     osmWrapper.init();
 
-    osmWrapper.getRoadData(-93.283222, -93.282520, 45.013512, 45.018908);
-
-
-	//if (!initSDL()) {
-	//	std::cout << "SDL Failed to Initialize!" << std::endl;
-	//	return -1;
-	//}
+    // Center: -93.282871, 45.01621
+    n = osmWrapper.getRoadData(-93.283222, -93.282520, 45.013512, 45.018908);
 
     bool running = true;
 
@@ -128,20 +118,15 @@ int main(int argc, char* args[])
 
     for (auto& node : n) {
         nodes.push_back(&node);
+        std::cout << nodes[nodes.size() - 1]->y << std::endl;
     }
 
-    map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, { 0.05, 0.05 }, { 0, 0 });
+    map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, { 0.1, 0.1 }, { -93.282871, 45.01621 });
 
-    map.connect(0, 1);
-    map.connect(1, 2);
-    map.connect(2, 3);
-    map.connect(3, 4);
-
-
-    SDL_SetWindowGrab(window, SDL_TRUE);
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-
-    SDL_GetMouseState(&mouseX, &mouseY);
+    if (!initSDL()) {
+        std::cout << "SDL Failed to Initialize!" << std::endl;
+        return -1;
+    }
 
     while (running) {
         while (SDL_PollEvent(&event)) {
