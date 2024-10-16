@@ -8,10 +8,10 @@ private:
 
     PyObject* requestFunction;
 
-	void callRequest(double min_lon, double max_lon, double min_lat, double max_lat);
+	std::vector<int> callRequest(double minLon, double maxLon, double minLat, double maxLat);
 
 public:
 	int init();
 
-	void getRoadData();
+	std::vector<int> getRoadData(double minLon, double maxLon, double minLat, double maxLat);
 };

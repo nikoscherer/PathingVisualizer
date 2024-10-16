@@ -1,14 +1,10 @@
 import requests
 import json
 
-def request():
+def request(min_lon, max_lon, min_lat, max_lat):
     
     nodes = set()
-    
-    min_lat = 45.013512
-    max_lat = 45.018908
-    min_lon = -93.283222
-    max_lon = -93.282520
+
 
     query = f"""
     [out:json];
@@ -18,7 +14,6 @@ def request():
     );
     out body;
     """
-    
     response = apiCall(query)
 
     if response.status_code == 200:
@@ -26,10 +21,15 @@ def request():
 
         print(json.dumps(data, indent=2))
         
-        #nodes = getNodes(data)
+        for node in data['elements']:
+            nodes.add(node['id'])
 
+        return list(nodes)
+        
+        #nodes = getNodes(data)
     else:
         print("Error:", response.status_code)
+        return -1
             
 def apiCall(query):
     return requests.get("http://overpass-api.de/api/interpreter", params={'data': query})

@@ -114,7 +114,7 @@ int main(int argc, char* args[])
 
     osmWrapper.init();
 
-    osmWrapper.getRoadData();
+    osmWrapper.getRoadData(-93.283222, -93.282520, 45.013512, 45.018908);
 
 
 	//if (!initSDL()) {
