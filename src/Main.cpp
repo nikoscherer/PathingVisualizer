@@ -23,8 +23,7 @@ Color WHITE = Color(200, 200, 200, 255);
 Color DARK_GRAY = Color(50, 50, 50, 255);
 
 
-std::vector<Node> n = { Node(0, 0, 0), Node(1, 0, 0.02), Node(2, 0, -0.02), Node(3, 0.02, 0.02), Node(4, 0.04, 0.04) };
-
+std::vector<Node> n;
 std::vector<Node*> nodes;
 Map map;
 
@@ -35,7 +34,7 @@ SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
 
-bool search = true;
+bool search = false;
 
 bool initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -76,8 +75,14 @@ void render() {
 
     while (!map.updatedNodes.empty()) {
         Node* vert = map.updatedNodes.front();
-
         std::vector<int> vertCoords = map.calculateScreenCoordinates(vert->x, vert->y);
+
+        for (auto id = vert->neighbors.begin(); id != vert->neighbors.end(); ++id) {
+            Node* neighbor = map.vertMap[*id];
+
+            std::vector<int> neighborCoords = map.calculateScreenCoordinates(neighbor->x, neighbor->y);
+            SDL_RenderDrawLine(renderer, vertCoords[0], vertCoords[1], neighborCoords[0], neighborCoords[1]);
+        }
 
         if (map.algorithm.visited.count(vert->id)) {
             SDL_SetRenderDrawColor(renderer, YELLOW.red(), YELLOW.green(), YELLOW.blue(), YELLOW.alpha());
@@ -103,11 +108,12 @@ void update() {
 
 int main(int argc, char* args[])
 {
+    std::vector<double> location = { -93.222570, 45.057988 };
+    std::vector<double> bbox = { 0.001, 0.001 };
 
     osmWrapper.init();
 
-
-    n = osmWrapper.getRoadData(-93.282871, 45.01621, { 0.1, 0.1 });
+    n = osmWrapper.getRoadData(location[0], location[1], bbox);
 
     bool running = true;
 
@@ -117,9 +123,8 @@ int main(int argc, char* args[])
         nodes.push_back(&node);
     }
 
-    map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, { 0.1, 0.1 }, { -93.282871, 45.01621 });
+    map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, bbox, location);
     
-
     if (!initSDL()) {
         std::cout << "SDL Failed to Initialize!" << std::endl;
         return -1;

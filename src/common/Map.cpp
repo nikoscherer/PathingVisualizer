@@ -18,6 +18,8 @@ Map::Map(std::vector<Node*> _vertices, std::vector<int> _SCREEN_SIZE, std::vecto
 		vertex->y = vertex->y - center[1];
 
 		vertices.push_back(vertex);
+
+		std::cout << vertex->id << std::endl;
 		vertMap[vertex->id] = vertex;
 		updatedNodes.push(vertex);
 	}
@@ -37,7 +39,7 @@ void Map::setCenterY(double centerY) {
 	center[1] = centerY;
 }
 
-void Map::connect(int id1, int id2) {
+void Map::connect(long long id1, long long id2) {
 	Node* vert1 = vertMap[id1];
 	Node* vert2 = vertMap[id2];
 	

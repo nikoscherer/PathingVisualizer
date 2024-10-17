@@ -1,12 +1,15 @@
 #include <filesystem>
 #include <Python.h>
 #include <iostream>
+#include <unordered_set>
 
 #include "../../include/common/OSMWrapper.h"
 #include "../../include/common/Node.h"
 
 int OSMWrapper::init() {
     Py_Initialize();
+
+    PyRun_SimpleString("import sys; print(sys.executable)");
 
     // Set python path
     std::filesystem::path executePath = std::filesystem::current_path();
@@ -45,6 +48,7 @@ std::vector<Node> OSMWrapper::callRequest(double minLon, double maxLon, double m
 
 
     PyObject* req = PyObject_CallObject(requestFunction, bbox);
+
     if (req) {
         std::vector<Node> result;
 
@@ -53,13 +57,21 @@ std::vector<Node> OSMWrapper::callRequest(double minLon, double maxLon, double m
         for (int i = 0; i < size; i++) {
             PyObject* item = PyList_GetItem(req, i);
 
-            int id = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(item, 0)));
+            long long id = static_cast<long long>(PyLong_AsLongLong(PyTuple_GetItem(item, 0)));
             double lon = static_cast<double>(PyFloat_AsDouble(PyTuple_GetItem(item, 1)));
             double lat = static_cast<double>(PyFloat_AsDouble(PyTuple_GetItem(item, 2)));
+            std::unordered_set<long long> neighbors;
 
-            result.push_back(Node(id, lon, lat));
+            PyObject* n = PyTuple_GetItem(item, 3);
+            Py_ssize_t neighborSize = PyList_Size(n);
+
+            for (int j = 0; j < neighborSize; j++) {
+                long long val = PyLong_AsLongLong(PyList_GetItem(n, j));
+                neighbors.insert(val);
+            }
+
+            result.push_back(Node(id, lon, lat, neighbors));
         }
-
         return result;
 
         Py_DECREF(req);

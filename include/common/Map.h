@@ -9,9 +9,9 @@
 #include "../algorithms/Algorithm.h"
 
 class Map {
-public:
+public: 
 	std::vector<Node*> vertices;
-	std::unordered_map<int, Node*> vertMap;
+	std::unordered_map<long long, Node*> vertMap;
 	std::queue<Node*> updatedNodes;
 
 	std::vector<int> SCREEN_SIZE;
@@ -25,7 +25,7 @@ public:
 	Map();
 	Map(std::vector<Node*> _vertices, std::vector<int> _SCREEN_SIZE, std::vector<double> _MAP_SIZE, std::vector<double> _center);
 
-	void connect(int id1, int id2);
+	void connect(long long id1, long long id2);
 
 	void runAlgorithm();
 

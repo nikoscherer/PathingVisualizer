@@ -4,12 +4,12 @@
 
 class Node {
 public:
-	int id;
+	long long id;
 
 	double x;
 	double y;
 
-	std::unordered_set<int> neighbors;
+	std::unordered_set<long long> neighbors;
 
-	Node(int _id, double _x, double _y);
+	Node(long long _id, double _x, double _y, std::unordered_set<long long> _neighbors);
 };

@@ -7,8 +7,8 @@
 class Algorithm {
 
 public:
-	std::unordered_set<int> visited;
-	std::vector<int> toVisit;
+	std::unordered_set<long long> visited;
+	std::vector<long long> toVisit;
 
 	virtual ~Algorithm() {};
 };
