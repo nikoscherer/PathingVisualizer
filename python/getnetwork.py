@@ -1,0 +1,2 @@
+def getnetwork(bbox, type):
+    

@@ -125,10 +125,10 @@ int main(int argc, char* args[])
 
     map = Map(nodes, { SCREEN_WIDTH, SCREEN_HEIGHT }, bbox, location);
     
-    if (!initSDL()) {
-        std::cout << "SDL Failed to Initialize!" << std::endl;
-        return -1;
-    }
+    //if (!initSDL()) {
+    //    std::cout << "SDL Failed to Initialize!" << std::endl;
+    //    return -1;
+    //}
 
     SDL_SetRenderDrawColor(renderer, DARK_GRAY.red(), DARK_GRAY.green(), DARK_GRAY.blue(), DARK_GRAY.alpha());
     SDL_RenderClear(renderer);

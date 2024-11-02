@@ -67,5 +67,6 @@
     <None Include="python\apihandler.py" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="python\getnetwork.py" />
   </ItemGroup>
 </Project>

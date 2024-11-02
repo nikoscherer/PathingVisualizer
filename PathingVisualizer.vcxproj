@@ -41,6 +41,7 @@
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="python\apihandler.py" />
+    <None Include="python\getnetwork.py" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
